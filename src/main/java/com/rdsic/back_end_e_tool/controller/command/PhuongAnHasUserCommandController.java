@@ -25,10 +25,10 @@ public class PhuongAnHasUserCommandController extends BaseCommand<PhuongAnHasUse
         super(service);
     }
 
+
     @PostMapping("save-new/{idUser}/{idPhuongAnQuyHoach}")
     public ResponseEntity<JsonResult> saveNew(@PathVariable("idUser") Integer idUser,
-                                              @PathVariable("idPhuongAnQuyHoach") Integer idPhuongAnQuyHoach
-    ) {
+                                              @PathVariable("idPhuongAnQuyHoach") Integer idPhuongAnQuyHoach) {
         try {
             PhuongAnHasUser phuongAnHasUser = new PhuongAnHasUser();
             PhuongAnHasUserKey phuongAnHasUserKey = new PhuongAnHasUserKey();
@@ -40,6 +40,16 @@ public class PhuongAnHasUserCommandController extends BaseCommand<PhuongAnHasUse
             phuongAnHasUser.setPhuongAnQuyHoachId(phuongAnQuyHoach);
             phuongAnHasUser.setId(phuongAnHasUserKey);
             return JsonResult.success(phuongAnHasUserRepository.save(phuongAnHasUser));
+        } catch (Exception e) {
+            return JsonResult.error(e);
+        }
+    }
+    @PostMapping("delete-user/{idUser}/{idPhuongAnQuyHoach}")
+    public ResponseEntity<JsonResult> deleteUser(@PathVariable("idUser") Integer idUser,
+                                              @PathVariable("idPhuongAnQuyHoach") Integer idPhuongAnQuyHoach) {
+        try {
+            phuongAnHasUserRepository.deleteUserTrongPhuongAn(idUser,idPhuongAnQuyHoach);
+            return JsonResult.success(null,"Đã xóa");
         } catch (Exception e) {
             return JsonResult.error(e);
         }
