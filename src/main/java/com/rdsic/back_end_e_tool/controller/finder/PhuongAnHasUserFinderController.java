@@ -21,13 +21,14 @@ public class PhuongAnHasUserFinderController extends BaseFinder<PhuongAnHasUser>
     public PhuongAnHasUserFinderController(BaseService<PhuongAnHasUser> service) {
         super(service);
     }
+
     @GetMapping("get-list-phuong-an")
     public ResponseEntity<JsonResult> findByIdUser(@RequestParam(value = "queries", required = false) List<String> queries,
                                                    @RequestParam(value = "sort", required = false) String sort) {
         try {
             List<PhuongAnHasUser> phuongAnHasUserList = super.service.filterWithSort(queries, sort);
             List<PhuongAnQuyHoach> phuongAnQuyHoachList = new ArrayList<>();
-            phuongAnHasUserList.parallelStream().forEach(item->{
+            phuongAnHasUserList.parallelStream().forEach(item -> {
                 phuongAnQuyHoachList.add(item.getPhuongAnQuyHoachId());
             });
             return JsonResult.success(phuongAnQuyHoachList);

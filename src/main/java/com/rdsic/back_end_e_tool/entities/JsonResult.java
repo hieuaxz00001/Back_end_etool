@@ -24,6 +24,10 @@ public class JsonResult<T> {
         return ResponseEntity.ok(new JsonResult(true, data, "OK"));
     }
 
+    public static ResponseEntity<JsonResult> success(Object data, String message) {
+        return ResponseEntity.ok(new JsonResult(true, data, message));
+    }
+
     public static ResponseEntity<JsonResult> uploaded(Object data) {
         return ResponseEntity.ok(new JsonResult(true, data, "uploaded"));
     }
